@@ -1,0 +1,251 @@
+﻿{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+    <!-- START PRELOADER -->
+    <div class="preloader">
+        <div class="status">
+            <div class="status-mes"></div>
+        </div>
+    </div>
+    <!-- / END PRELOADER -->
+
+    <!-- START HOMEPAGE DESIGN AREA -->
+    <header id="home" class="welcome-area">
+        <div class="header-top-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <!-- START LOGO DESIGN AREA -->
+                        <div class="logo">
+                            <a href="/">{{ profile.name }}</a>
+                        </div>
+                        <!-- END LOGO DESIGN AREA -->
+                    </div>
+                    <div class="col-sm-9">
+                        <!-- START MENU DESIGN AREA -->
+                        <div class="mainmenu">
+                            <div class="navbar navbar-nobg">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                            data-target=".navbar-collapse">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                                <div class="navbar-collapse collapse">
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li class="active"><a class="smoth-scroll" href="#home">Home
+                                            <div class="ripple-wrapper"></div>
+                                        </a>
+                                        </li>
+                                        <li><a class="smoth-scroll" href="#about">Skill</a>
+                                        </li>
+                                        <li><a class="smoth-scroll" href="#work">Work</a>
+                                        </li>
+                                        <li><a class="smoth-scroll" href="#contact">Contact</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END MENU DESIGN AREA -->
+                    </div>
+
+                </div>
+                {% if messages %}
+                    {% for message in messages %}
+                        <center>
+                            <div class="alert alert-{{ message.tags }}" style="width: 500px">
+                                <p>{{ message }}</p>
+                            </div>
+                        </center>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="welcome-image-area particle-bg" data-stellar-background-ratio="0.6">
+            <div id="particles-js"></div>
+            <div class="display-table">
+                <div class="display-table-cell">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="header-text text-center">
+                                    <h1 class="typewrite" data-period="2000"
+                                        data-type='[ "Hi, I am {{ profile.name }}.", "{{ profile.about_me }}.", "i am from Afghanistan" ]'>
+                                        Personal v2<span class="wrap"></span>
+                                    </h1>
+                                    <div class="social-links header-links">
+                                        <ul>
+                                            {% if profile.social_linkdin %}
+                                                <li><a href="{{ profile.social_linkdin }}"><i
+                                                        class="fa fa-linkedin"></i></a></li>
+                                            {% endif %}
+                                            {% if profile.social_github %}
+                                                <li><a href="{{ profile.social_github }}"><i
+                                                        class="fa fa-github"></i></a></li>
+                                            {% endif %}
+                                            {% if profile.social_twitter %}
+                                                <li><a href="{{ profile.social_twitter }}"><i class="fa fa-twitter"></i></a>
+                                                </li>
+                                            {% endif %}
+                                            {% if profile.social_stackoverflow %}
+                                                <li><a href="{{ profile.social_stackoverflow }}"><i
+                                                        class="fa fa-stack-overflow"></i></a></li>
+                                            {% endif %}
+                                            {% if profile.website %}
+                                                <li><a href="{{ profile.website }}"><i class="fa fa-dribbble"></i></a>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                    <div class="home-arrow-down">
+                                        <a href="#about" class="smoth-scroll btn"><i
+                                                class="fa fa-angle-double-down"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- / END HOMEPAGE DESIGN AREA -->
+    <!-- START ABOUT DESIGN AREA -->
+    <section id="about" class="about-me-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="section-title">
+                        <h2>My Skills</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- START ABOUT IMAGE AREA -->
+                    <div class="about-image">
+                        <img src="{{ profile.image.url }}" alt="">
+                    </div>
+                    <!-- / END ABOUT IMAGE AREA -->
+                </div>
+                <div class="col-md-6">
+                    <!-- START ABOUT TEXT AREA -->
+                    <div class="about-text">
+
+                        <ul class="wow fadeInUp" data-wow-delay="0.8s">
+                            {% for skill in skills %}
+                                <li><b>{{ skill.name }}</b></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <!-- / END ABOUT TEXT AREA -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- START WORK DESIGN AREA -->
+    <section id="work" class="work section-padding">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="section-title">
+                        <h2>Some Projects</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="work-inner">
+                <div class="row work-posts grid">
+                    <!-- START SINGLE WORK DESIGN AREA -->
+                    {% for project in projects %}
+                        <div class="col-md-4 col-sm-6 mix webdesign">
+                            <div class="item">
+                                <a href="{{ project.image.url }}" class="work-popup">
+                                    <figure class="effect-ruby">
+                                        <img src="{{ project.image.url }}" alt="image">
+                                        <figcaption>
+                                            <h2>{{ project.name }}</h2>
+                                        </figcaption>
+                                    </figure>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / END START WORK DESIGN AREA -->
+
+
+
+    <!-- START CONTACT DESIGN AREA -->
+    <section id="contact" class="contact-me-area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-title">
+                        <h2>contact me!</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <!-- START CONTACT FORM DESIGN AREA -->
+                    <div class="contact-form">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="form-group col-md-12 wow fadeInUp" data-wow-delay="0.2s">
+                                    <input type="text" name="name" class="form-control" id="first-name"
+                                           placeholder="Name"
+                                           required="required">
+                                </div>
+                                <div class="form-group col-md-12 wow fadeInUp" data-wow-delay="0.4s">
+                                    <input type="email" name="email" class="form-control" id="email" placeholder="Email"
+                                           required="required">
+                                </div>
+                                <div class="form-group col-md-12 wow fadeInUp" data-wow-delay="0.6s">
+                                <textarea rows="6" name="message" class="form-control" id="description"
+                                          placeholder="Your Message" required="required"></textarea>
+                                </div>
+                                <div class="col-md-12 text-center wow fadeInUp" data-wow-delay="0.8s">
+                                    <div class="actions wow fadeInDown" data-wow-delay=".4s">
+                                        <input type="submit" value="Send" class="btn btn-success">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- / END CONTACT FORM DESIGN AREA -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- / END CONTACT DESIGN AREA -->
+
+    <!-- START FOOTER DESIGN AREA -->
+    <footer class="footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="social-links">
+                        <ul>
+                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href=""><i class="fa fa-dribbble"></i></a></li>
+                            <li><a href=""><i class="fa fa-instagram"></i></a></li>
+                        </ul>
+                    </div>
+                    <p>&copy;Copyright 2017 Personal v2 | All RightReserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+{% endblock %}
